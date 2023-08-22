@@ -83,11 +83,11 @@
 //         let page=args.object
 //         let root=page.getViewById('root')
 //         let selector = new Selector()
-//         selctor.init()
+//         selector.init()
 //         root.addChild(selector)
 //         selector.view='AnoterFrameID' //
-//         selector.labels='Im a Label, I'm going to be a fontAwsome Icon'  
-//         BindRichText(selector.label[1], 'fas:\uf03a', ' Another Label> //will be added in front of Icon')
+//         selector.labels="Im a Label, I'm going to be a fontAwsome Icon"  
+//         selector.BindRichText(selector.label[1], 'fas:\uf03a', ' Another Label> //will be added in front of Icon')
 //       }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -402,27 +402,27 @@ export class Selector extends StackLayout{
   get fas() { this.font=this.fonts.fas['fas:']; return this.font }
   get fab() { this.font=this.fonts.fab['fab:']; return this.font }
 
-  // use this to set font-awsome icons to the labels
-  BindRichText(view, ...strings){   
-    function _MakeRichText( ...string ){
-      let span=[]
-      let formated= new FormattedString()
-      for (let i in string){ 
-        span.push( new Span() )
-        span[i].text=string[i]
-        span[i].className=this.font
-        for (let j in this.fonts )  
-          if(string[i].startsWith(j)){
-            span[i].text=string[i].slice(4)
-            span[i].className=this.fonts[j]
-          }      
-        formated.spans.push(span[i])
-      }
-      return formated
-    }
-  
+  _MakeRichText( ...string ){
     let span=[]
-    let formated=this._MakeRichText(...strings)     
+    let formated= new FormattedString()
+    for (let i in string){ 
+      span.push( new Span() )
+      span[i].text=string[i]
+      span[i].className=this.font
+      for (let j in this.fonts )  
+        if(string[i].startsWith(j)){
+          span[i].text=string[i].slice(4)
+          span[i].className=this.fonts[j]
+        }      
+      formated.spans.push(span[i])
+    }
+    return formated
+  }
+
+  // use this to set font-awsome icons to the labels
+  BindRichText(view, ...strings){     
+    let span=[]
+    let formated=_MakeRichText(...strings)     
     view.formattedText=formated
     return view    
   }
