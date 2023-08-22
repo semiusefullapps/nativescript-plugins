@@ -87,7 +87,7 @@
 //         root.addChild(selector)
 //         selector.view='AnoterFrameID' //
 //         selector.labels='Im a Label, I'm going to be a fontAwsome Icon'  
-//         BindRichText(selector.label[1], 'fas:\uf03a', ' Another Label> //will be added in front of Icon'
+//         BindRichText(selector.label[1], 'fas:\uf03a', ' Another Label> //will be added in front of Icon')
 //       }
 ///////////////////////////////////////////////////////////////////////////////
 
