@@ -83,12 +83,13 @@
 //         let page=args.object
 //         let root=page.getViewById('root')
 //         let selector = new Selector()
-//         selector.init()
+//         selctor.init()
 //         root.addChild(selector)
 //         selector.view='AnoterFrameID' //
-//         selector.labels="Im a Label, I'm going to be a fontAwsome Icon"  
-//         selector.BindRichText(selector.label[1], 'fas:\uf03a', ' Another Label> //will be added in front of Icon')
+//         selector.labels='Im a Label, I'm going to be a fontAwsome Icon'  
+//         BindRichText(selector.label[1], 'fas:\uf03a', ' Another Label> //will be added in front of Icon'
 //       }
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 export class Selector extends StackLayout{
@@ -154,6 +155,7 @@ export class Selector extends StackLayout{
       let color=target.borderColor
       target.borderColor=''
       target.borderColor=color
+      console.log(`target.borderColor=Color`)
       target.notifyPropertyChange('selected', newValue, oldValue)
     }
   })
@@ -249,7 +251,7 @@ export class Selector extends StackLayout{
   // determine how to split the labels string into labels. Default ","
   #spliter = new Property({
     name: "spliter",
-    defaultValue: '',
+    defaultValue: ',',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
       let labels=target.labels; 
@@ -344,12 +346,18 @@ export class Selector extends StackLayout{
     this.selectedWidth=selectedWidth
     this.selectedColor=selectedColor
     this.borderColor=borderColor
-    
+  
+    this.on(Selector.propertyChangeEvent, (o)=>{
+      console.log(o.propertyName)
+      if(o.propertyName =='labels') console.log('labels changed.')
+    })
+
     this.on('tap',(o)=>{
-      //console.log(o)
+      console.log(this.selected)
+      console.log(this.selectedColor)
       if(this.selected==false){
         this.selected=true
-        this.Show(this._view)
+        if(this._view) this.Show(this._view)
       }
     })
   }
@@ -422,7 +430,7 @@ export class Selector extends StackLayout{
   // use this to set font-awsome icons to the labels
   BindRichText(view, ...strings){     
     let span=[]
-    let formated=_MakeRichText(...strings)     
+    let formated=this._MakeRichText(...strings)     
     view.formattedText=formated
     return view    
   }
@@ -436,8 +444,8 @@ export class Selector extends StackLayout{
   // find its attached view.id
   init(){
     let view=this.topLevel.getViewById(this.view)
-    this._view=view
-    if(this._view){
+    if(view){
+      this._view=view
       this.Hide(this._view)
       if(this.selected==true){
         this.selected=false
@@ -448,16 +456,13 @@ export class Selector extends StackLayout{
 }
 
 
-/// The main class that will use the Multiple instances of Selector
-/// I relize some of the code is reduntant.
-
 export class ViewSelector extends StackLayout{
   get topLevel(){
     let view=this
     while('parent' in view) {view=view.parent}
     return view
   }  
-
+/*
   #borderColor = new Property({
     name: "borderColor",
     defaultValue: '',
@@ -468,17 +473,19 @@ export class ViewSelector extends StackLayout{
     }
   })
 
+
   #selected = new Property({
     name: "selected",
     defaultValue: false,
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
+      console.log('tapped that')
       target.notifyPropertyChange('selected', newValue, oldValue)
     }
   })
 
   #selectorBox = new Property({
-    name: "selectedBox",
+    name: "selectorBox",
     defaultValue: false,
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
@@ -488,7 +495,7 @@ export class ViewSelector extends StackLayout{
   })
 
   #selectorColor = new Property({
-    name: "selectedColor",
+    name: "selectorColor",
     defaultValue: '',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
@@ -498,7 +505,7 @@ export class ViewSelector extends StackLayout{
   })
 
   #borderWidth = new Property({
-    name: "unSelectedWidth",
+    name: "borderWidth",
     defaultValue: '',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
@@ -508,7 +515,7 @@ export class ViewSelector extends StackLayout{
   })
 
   #selectorWidth = new Property({
-    name: "selectedWidth",
+    name: "selectorWidth",
     defaultValue: '',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
@@ -553,17 +560,19 @@ export class ViewSelector extends StackLayout{
     }
   })
 
+  
   #spliter = new Property({
     name: "spliter",
-    defaultValue: '',
+    defaultValue: ',',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
-//      let views=target.views 
-//      target.views=''
-//      target.views=views 
+  //    let views=target.views 
+  //    target.views=''
+  //    target.views=views 
       target.notifyPropertyChange('spliter', newValue, oldValue)
     }
   })
+
 
   #fontSize = new Property({
     name: "fontSize",
@@ -575,6 +584,7 @@ export class ViewSelector extends StackLayout{
     }
   })
 
+  
   #textColor = new Property({
     name: "textColor",
     defaultValue: '',
@@ -584,7 +594,7 @@ export class ViewSelector extends StackLayout{
       target.notifyPropertyChange('textColor', newValue, oldValue)
     }
   })
-
+*/
   #views = new Property({
     name: "views",
     defaultValue: '',
@@ -594,11 +604,14 @@ export class ViewSelector extends StackLayout{
       let vs=newValue.split(target.spliter); vs.map((e,i,o)=>{o[i]=o[i].trim()})
       vs.map((e,i,o)=>{
         let selector=new Selector()
-        selector.vAlignment=target.vAlignment
-        selector.hAlignment=target.hAlignment
-        selector.fontSize=target.fontSize
-        selector.color=target.textColor
+        
+        target.verticalAlignment=selector.vAlignment
+        target.horizontalAlignment=selector.hAlignment
+//        selector.fontSize=target.fontSize
+//        selector.color=target.textColor
         selector.view=e
+//        selector.spliter=','
+        selector.labels='label'
         target.addChild(selector)
       })
       target.notifyPropertyChange('views', newValue, oldValue)
@@ -606,26 +619,26 @@ export class ViewSelector extends StackLayout{
   })
  
   constructor(
-    views='viewID', 
-    spliter=',', width='100%', height='100%', textColor='white', 
-    fontSize='18', backgroundColor='black', borderColor='yellow', vAlignment='center', 
-    hAlignment='center'){
+    views='viewID', spliter=',', width='100%', height='100%', textColor='white', 
+    fontSize='18', backgroundColor='black', borderWidth='1', selectorWidth='3',
+    borderColor='yellow', selectorColor='red', vAlignment='center', hAlignment='center', 
+    selectorBox=false, selected=false){
 
     super()
     
     this.#views.register(ViewSelector)
-    this.#borderColor.register(ViewSelector)
-    this.#selected.register(ViewSelector)
-    this.#selectorBox.register(ViewSelector)
-    this.#selectorColor.register(ViewSelector)
-    this.#borderWidth.register(ViewSelector)
-    this.#selectorWidth.register(ViewSelector)
-    this.#hAlignment.register(ViewSelector)
-    this.#vAlignment.register(ViewSelector)
-    this.#color.register(ViewSelector)
-    this.#spliter.register(ViewSelector)
-    this.#fontSize.register(ViewSelector)
-    this.#textColor.register(ViewSelector)
+//    this.#borderColor.register(ViewSelector)
+//    this.#selected.register(ViewSelector)
+//    this.#selectorBox.register(ViewSelector)
+//    this.#selectorColor.register(ViewSelector)
+//    this.#borderWidth.register(ViewSelector)
+//    this.#selectorWidth.register(ViewSelector)
+//    this.#hAlignment.register(ViewSelector)
+//    this.#vAlignment.register(ViewSelector)
+//    this.#color.register(ViewSelector)
+//    this.#spliter.register(ViewSelector)
+//    this.#fontSize.register(ViewSelector)
+//    this.#textColor.register(ViewSelector)
 
     this.fonts={}
     this.fonts['far:']='far' 
@@ -636,14 +649,31 @@ export class ViewSelector extends StackLayout{
     this.width=width
     this.height=height
     this.views=views
-    this.spliter=spliter
-    this.textColor=textColor
-    this.color=backgroundColor
-    this.fontSize=fontSize
-    this.vAlignment=vAlignment
-    this.hAlignment=hAlignment
-    this.borderColor='green'
-    
+    //this.spliter=spliter
+//    this.textColor=textColor
+//    this.color=backgroundColor
+//    this.fontSize=fontSize
+//    this.vAlignment=vAlignment
+//    this.hAlignment=hAlignment
+//    this.borderWidth=borderWidth
+//    this.selectorWidth=selectorWidth
+//    this.selectorColor=selectorColor
+//    this.borderColor=borderColor
+
+    this.on(Selector.propertyChangeEvent, (o)=>{``
+      console.log(o.propertyName)
+      if(o.propertyName =='labels') console.log('labels changed.')
+    })
+
+    this.on('tap',(o)=>{
+      console.log('pii')
+      console.log(this.selector[0].selectedColor)
+      if(this.selected==false){
+        this.selected=true
+        if(this._view) this.Show(this._view)
+      }
+    })
+ 
     /*
     this.on('tap',(o)=>{
       //console.log(o)
@@ -655,3 +685,303 @@ export class ViewSelector extends StackLayout{
     })
 */
   }
+  
+  get views() { return this._getValue(this.#views) }
+  set views(value) { this._setValue(this.#views, value) }
+
+  get selector(){ let subview=[]; for(let i=0;i < this.getChildrenCount();i++) subview.push(this.getChildAt(i)); return subview }
+/*
+//  get borderColor() { return this._getValue(this.#borderColor) }
+//  set borderColor(value) { this._setValue(this.#borderColor, value) }
+
+  get selected() { return this._getValue(this.#selected) }
+  set selected(value) { this._setValue(this.#selected, value) }
+
+  get selectorBox() { return this._getValue(this.#selectorBox) }
+  set selectorBox(value) { this._setValue(this.#selectorBox, value) }
+
+  get selectorColor() { return this._getValue(this.#selectorColor) }
+  set selectorColor(value) { this._setValue(this.#selectorColor, value) }
+
+  get borderWidth() { return this._getValue(this.#borderWidth) }
+  set borderWidth(value) { this._setValue(this.#borderWidth, value) }
+
+  get selectorWidth() { return this._getValue(this.#selectorWidth) }
+  set selectorWidth(value) { this._setValue(this.#selectorWidth, value) }
+
+  get hAlignment() { return this._getValue(this.#hAlignment) }
+  set hAlignment(value) { this._setValue(this.#hAlignment, value) }
+
+  get vAlignment() { return this._getValue(this.#vAlignment) }
+  set vAlignment(value) { this._setValue(this.#vAlignment, value) }
+
+  get color() { return this._getValue(this.#color) }
+  set color(value) { this._setValue(this.#color, value) }
+
+ // get spliter() { return this._getValue(this.#spliter) }
+//  set spliter(value) { this._setValue(this.#spliter, value) }
+
+  get fontSize() { return this._getValue(this.#fontSize) }
+  set fontSize(value) { this._setValue(this.#fontSize, value) }
+
+  get textColor() { return this._getValue(this.#textColor) }
+  set textColor(value) { this._setValue(this.#textColor, value) }
+*/
+  get fa(){ this.font=this.fonts['far:']; return this.font}
+  get fas() { this.font=this.fonts.fas['fas:']; return this.font }
+  get fab() { this.font=this.fonts.fab['fab:']; return this.font }
+
+  // use this to set font-awsome icons to the labels
+  BindRichText(view, ...strings){   
+    function _MakeRichText( ...string ){
+      let span=[]
+      let formated= new FormattedString()
+      for (let i in string){ 
+        span.push( new Span() )
+        span[i].text=string[i]
+        span[i].className=this.font
+        for (let j in this.fonts )  
+          if(string[i].startsWith(j)){
+            span[i].text=string[i].slice(4)
+            span[i].className=this.fonts[j]
+          }      
+        formated.spans.push(span[i])
+      }
+      return formated
+    }
+  
+    let span=[]
+    let formated=this._MakeRichText(...strings)     
+    view.formattedText=formated
+    return view    
+  }
+
+  // Utility functions
+  Gone(view){ view.visibility="collapsed" }
+  Show(view){ view.visibility="visible" }
+  Hide(view){ view.visibility="hidden" }
+
+  // call this once after all is loaded so Selector can
+  // find its attached view.id
+  init(){
+    this.selector.map((e,i,o)=>{ 
+      let view=this.topLevel.getViewById(o[i].view[i]) 
+      if(view){
+        o[i]._view=view
+        this.Hide(o[i]._view)
+        if(o[i].selected==true){
+          o[i].selected=false
+          o[i].selected=true
+        }
+      }  
+    })
+  }
+}
+
+/*
+export class ViewSelector extends StackLayout{
+  constructor(){
+    super()
+    this.id=GenerateCode("ViewSelector.","_ID","",10,1,1,true,true,false,false)
+    this.frame=[]
+    this.width="100%"  
+    this.height="100%"
+    this.orientation='horizontal'
+    this.verticalAlignment='center'
+    this.horizontalAlignment='center'
+    this.textAlignment='center'
+    this._selected=0
+    this._selectedColor='green'
+    this._selectorColor=this.backgroundColor
+    this._selectorWidth=3
+    this._borderColor=this.backgroundColor
+    this._borderWidth=this.borderWidth
+      
+
+    this._fontSize=16
+    this._labels=1
+    this.views='happy, day'//GenerateCode(".","_ID","",10,1,1,true,true,false,false)
+    this.Build()
+//    this.on(StackLayout.loadedEvent, this.onLoaded, this);
+
+    //    this.Build()
+//    this.selected=this._selected
+  } 
+  
+//  onLoaded(args){
+//    super.onLoaded(args);
+
+
+//    this.frame.map((e,i,r)=>{
+//      e.on(GestureTypes.tap,(event)=>{ 
+//        console.log(this.view)            
+//      })
+//    })
+  
+//  }
+
+/*
+  get viewer(){ return this._viewer }
+  set viewer(view_id){ 
+    let page=Frame.topmost().currentPage
+    let ids=view_id.split(",")
+    for(let i in ids) {
+      ids[i]=ids[i].trim()  
+      this._viewer[i]=page.getViewById(ids[i])
+    }
+  }
+*/
+
+/*
+  Build(){
+    this._Build()
+    this.selected=this._selected
+  }
+
+  _Build(){
+    
+    let ui=MakeUI()
+    if(this.frame.length>0) while(this.frame.length>0) ui.Destroy(this.frame.pop())
+
+    let height=`${this.height.value*100}%`
+    let width=`${this.width.value*100}%`
+    let views=this.views
+    
+    if (this.orientation=='horizontal') width=`${this.width.value/views.length*100}%`
+    if (this.orientation=='vertical') height=`${this.height.value/views.length*100}%`
+
+    let borderWidth=this.borderWidth
+    let borderColor=this.borderColor
+    let selectorColor = this.selectorColor
+    let selectorWidth = this.selectorWidth
+    views.map((e,i,v)=>{
+      this.frame.push(ui.MakeStackLayout(this,'vertical',width,height,'', borderWidth, borderColor))
+//      this.frame[i].borderBottomColor=selectorColor
+//      this.frame[i].borderBottomWidth=selectorWidth      
+      this.frame[i].id=e
+      this.frame[i].horizontalAlignment=this.horizontalAlignment
+      this.frame[i].verticalAlignment=this.verticalAlignment
+      this.frame[i].label=[]
+            
+      this.frame[i].on(GestureTypes.tap,(event)=>{ 
+        if(views[this.selected]==e) {}
+        else {
+//          this.frame[this.selected].borderBottomColor=this.selectorColor
+//          this._selected=vn
+//          this.frame[this.selected].borderBottomColor=this.selectedColor
+      
+//          let ui=MakeUI()
+//          ui.Gone(this._viewer[this.selected])
+//          this.selected=i
+//          ui.Show(this._viewer[this.selected])
+        }  
+      })
+
+//      this.frame[i].on('loaded',(event)=>{
+//        console.log(Object.keys(event))
+//        console.log(event.eventName)
+//      })
+
+      for(let j=0; j<this.labels; j++) {
+        let label=ui.MakeLabel(this.frame[i],`${i}-${j}`)
+        this.frame[i].label.push(label)
+        let lbl=this.Label(i,j)
+//        lbl.color=this.color
+//        lbl.fontSize=this.fontSize
+        lbl.textAlignment=this.textAlignment
+        lbl.id=`${e}.${i}.${j}_ID`
+      } 
+    })
+  }
+
+  Label(pos, num){ return this.frame[pos].label[num] }
+
+//  get selectorColor(){ return this.frame[this.selected].borderBottomColor }
+//  set selectorColor(color){ this.frame[this.selected].borderBottomColor=this.color }
+  
+//  get selectedColor(){ return this.frame[this.selected].borderBottomColor }
+//  set selectedColor(color){ this.frame[this.selected].borderBottomColor=color }
+
+//  get selectorWidth(){ return this.frame[i].borderBottomWidth }
+//  set selectorWidth(width){ this.frame[i].borderBottomWidth=width}
+
+//  get borderColor(){ return this.frame[i].borderColor }
+//  set borderColor(color){ this.frame[i].borderColor=color }
+
+//  get borderWidth(){ return this.frame[i].borderWidth }
+//  set borderWidth(width){ this.frame[i].borderWidth=width }
+
+  get labels(){ return this._labels }
+  set labels(number){ this._labels=number }  
+  
+  get view(){
+    return this.views[this.selected]
+  }
+
+  get views() {
+    let views=this._views.split(",")
+    for(let i in views) views[i]=views[i].trim()  
+    return views
+   }
+
+  set views(names) { 
+    this._views=names
+  }
+
+//  get fontSize(){return this._fontSize }
+//  set fontSize(size){ this._fontSize=size; return this.fontSize }    
+
+/*
+  get color(){ 
+    //super().this.color
+    console.log('got color') 
+    return this.color
+  }
+
+  set color(color){ 
+    //super().this.color
+    this.color=color 
+    console.log('set color')
+  }
+*/
+
+//  get selected(){ return this._selected; }
+//  set selected(vn) { 
+
+    //    this.frame[this.selected].borderBottomColor=this.selectorColor
+//    this._selected=vn
+//    this.frame[this.selected].borderBottomColor=this.selectedColor
+  //}
+
+  /*
+  setupViewer(context, self){
+    let vs=self
+    let ui=MakeUI()
+    vs._viewer={...vs.views}
+    for(let i in vs._viewer){ 
+      vs._viewer[i]=context.getViewById(vs._viewer[i])
+      ui.Gone(vs._viewer[i])
+    }
+    ui.Show(vs._viewer[vs.selected])
+  }
+  
+}
+
+/*
+export function ViewSelector(){ 
+  let view = new cViewSelector();
+    
+  
+
+
+  //  view.orientation='horizontal';
+/*
+  view.frame.map((e,i,r)=>{
+    e.on(GestureTypes.tap,(event)=>{ 
+      console.log(view.id)
+    })
+  })
+  
+  return view 
+}
+*/
