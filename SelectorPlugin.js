@@ -447,3 +447,211 @@ export class Selector extends StackLayout{
   }
 }
 
+
+/// The main class that will use the Multiple instances of Selector
+/// I relize some of the code is reduntant.
+
+export class ViewSelector extends StackLayout{
+  get topLevel(){
+    let view=this
+    while('parent' in view) {view=view.parent}
+    return view
+  }  
+
+  #borderColor = new Property({
+    name: "borderColor",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.borderColor=newValue })
+      target.notifyPropertyChange('borderColor', newValue, oldValue)
+    }
+  })
+
+  #selected = new Property({
+    name: "selected",
+    defaultValue: false,
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+      target.notifyPropertyChange('selected', newValue, oldValue)
+    }
+  })
+
+  #selectorBox = new Property({
+    name: "selectedBox",
+    defaultValue: false,
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.selectedBox=newValue })
+      target.notifyPropertyChange('selectedBox', newValue, oldValue)
+    }
+  })
+
+  #selectorColor = new Property({
+    name: "selectedColor",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.selectedColor=newValue })
+      target.notifyPropertyChange('selectedColor', newValue, oldValue)
+    }
+  })
+
+  #borderWidth = new Property({
+    name: "unSelectedWidth",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+ //     target.selector.map((e,i,o),()=>{ e.unSelectedWidth=newValue })
+      target.notifyPropertyChange('unSelectedWidth', newValue, oldValue)
+    }
+  })
+
+  #selectorWidth = new Property({
+    name: "selectedWidth",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.selectedWidth=newValue })
+      target.notifyPropertyChange('selectedWidth', newValue, oldValue)
+    }
+  })
+
+  #hAlignment = new Property({
+    name: "hAlignment",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ 
+//        e.horizontalAlignment=newValue  
+//        e.label.map((ee,ii,oo)=>{ ee.horizontalAlignment=newValue }) 
+//      })
+      target.notifyPropertyChange('hAlignment', newValue, oldValue)
+    }
+  })
+  
+  #vAlignment = new Property({
+    name: "vAlignment",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ 
+//        e.verticalAlignment=newValue  
+//        e.label.map((ee,ii,oo)=>{ ee.verticalAlignment=newValue }) 
+//      })
+      target.notifyPropertyChange('vAlignment', newValue, oldValue)
+    }
+  })
+
+  #color = new Property({
+    name: "color",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.color=newValue })
+      target.notifyPropertyChange('color', newValue, oldValue)
+    }
+  })
+
+  #spliter = new Property({
+    name: "spliter",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      let views=target.views 
+//      target.views=''
+//      target.views=views 
+      target.notifyPropertyChange('spliter', newValue, oldValue)
+    }
+  })
+
+  #fontSize = new Property({
+    name: "fontSize",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.label.map((ee,ii,oo)=>{ ee.fontSize=newValue }) })
+      target.notifyPropertyChange('fontSize', newValue, oldValue)
+    }
+  })
+
+  #textColor = new Property({
+    name: "textColor",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+//      target.selector.map((e,i,o),()=>{ e.label.map((ee,ii,oo)=>{ ee.color=newValue }) })
+      target.notifyPropertyChange('textColor', newValue, oldValue)
+    }
+  })
+
+  #views = new Property({
+    name: "views",
+    defaultValue: '',
+    affectsLayout: true,
+    valueChanged: function(target, oldValue, newValue) { 
+      if(target.getChildrenCount() > 0){ while(target.label.length>0) target.removeChild(target.label.pop()) }
+      let vs=newValue.split(target.spliter); vs.map((e,i,o)=>{o[i]=o[i].trim()})
+      vs.map((e,i,o)=>{
+        let selector=new Selector()
+        selector.vAlignment=target.vAlignment
+        selector.hAlignment=target.hAlignment
+        selector.fontSize=target.fontSize
+        selector.color=target.textColor
+        selector.view=e
+        target.addChild(selector)
+      })
+      target.notifyPropertyChange('views', newValue, oldValue)
+    }
+  })
+ 
+  constructor(
+    views='viewID', 
+    spliter=',', width='100%', height='100%', textColor='white', 
+    fontSize='18', backgroundColor='black', borderColor='yellow', vAlignment='center', 
+    hAlignment='center'){
+
+    super()
+    
+    this.#views.register(ViewSelector)
+    this.#borderColor.register(ViewSelector)
+    this.#selected.register(ViewSelector)
+    this.#selectorBox.register(ViewSelector)
+    this.#selectorColor.register(ViewSelector)
+    this.#borderWidth.register(ViewSelector)
+    this.#selectorWidth.register(ViewSelector)
+    this.#hAlignment.register(ViewSelector)
+    this.#vAlignment.register(ViewSelector)
+    this.#color.register(ViewSelector)
+    this.#spliter.register(ViewSelector)
+    this.#fontSize.register(ViewSelector)
+    this.#textColor.register(ViewSelector)
+
+    this.fonts={}
+    this.fonts['far:']='far' 
+    this.fonts['fas:']='fas'
+    this.fonts['fab:']='fab'
+    this.font=this.fa
+  
+    this.width=width
+    this.height=height
+    this.views=views
+    this.spliter=spliter
+    this.textColor=textColor
+    this.color=backgroundColor
+    this.fontSize=fontSize
+    this.vAlignment=vAlignment
+    this.hAlignment=hAlignment
+    this.borderColor='green'
+    
+    /*
+    this.on('tap',(o)=>{
+      //console.log(o)
+      if(this.selected==false){
+        this.selected=true
+        //this.Show(this._view)
+        console.log(this.views)
+      }
+    })
+*/
+  }
