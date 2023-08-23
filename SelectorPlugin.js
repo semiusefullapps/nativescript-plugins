@@ -107,9 +107,7 @@ export class Selector extends StackLayout{
     name: "view",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      target.notifyPropertyChange('view', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('view', newValue, oldValue) }
   })
 
   // the Selector's border color
@@ -117,33 +115,7 @@ export class Selector extends StackLayout{
     name: "borderColor",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      if(target.selected){
-        if(target.selectedBox){
-          target.borderWidth=target.selectedWidth
-          target.borderTopColor=target.selectedColor
-          target.borderRightColor=target.selectedColor
-          target.borderBottomColor=target.selectedColor
-          target.borderLeftColor=target.selectedColor
-        }
-        else{
-          target.borderWidth=target.unSelectedWidth
-          target.borderTopColor=newValue
-          target.borderRightColor=newValue
-          target.borderBottomWidth=target.selectedWidth
-          target.borderBottomColor=target.selectedColor
-          target.borderLeftColor=newValue
-        }
-      }
-      else{
-        target.borderWidth=target.unSelectedWidth
-        target.borderTopColor=newValue
-        target.borderRightColor=newValue
-        target.borderBottomColor=newValue
-        target.borderLeftColor=newValue
-      }
-      target.notifyPropertyChange('borderColor', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('borderColor', newValue, oldValue) }
   })
 
   // if Selector is tapped then selected becomes true
@@ -151,13 +123,7 @@ export class Selector extends StackLayout{
     name: "selected",
     defaultValue: false,
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      let color=target.borderColor
-      target.borderColor=''
-      target.borderColor=color
-      console.log(`target.borderColor=Color`)
-      target.notifyPropertyChange('selected', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('selected', newValue, oldValue) }
   })
 
   // if this is set to true then the selector outlines the Entire
@@ -166,12 +132,7 @@ export class Selector extends StackLayout{
     name: "selectedBox",
     defaultValue: false,
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      let color=target.borderColor
-      target.borderColor=''
-      target.borderColor=color
-      target.notifyPropertyChange('selectedBox', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('selectedBox', newValue, oldValue) }
   })
 
   // the color of the selector
@@ -179,12 +140,7 @@ export class Selector extends StackLayout{
     name: "selectedColor",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      let color=target.borderColor
-      target.borderColor=''
-      target.borderColor=color
-      target.notifyPropertyChange('selectedColor', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('selectedColor', newValue, oldValue) }
   })
 
   // use this instead of borderWidth to set the size of the border
@@ -192,12 +148,7 @@ export class Selector extends StackLayout{
     name: "unSelectedWidth",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      let color=target.borderColor
-      target.borderColor=''
-      target.borderColor=color
-      target.notifyPropertyChange('unSelectedWidth', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('unSelectedWidth', newValue, oldValue) }
   })
 
   // this set she selectors width.
@@ -206,11 +157,7 @@ export class Selector extends StackLayout{
     defaultValue: '',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
-      let color=target.borderColor
-      target.borderColor=''
-      target.borderColor=color
-      target.notifyPropertyChange('selectedWidth', newValue, oldValue)
-    }
+      let color=target.borderColor; target.notifyPropertyChange('selectedWidth', newValue, oldValue) }
   })
 
   // set the horizontal alignment of the labels
@@ -218,11 +165,7 @@ export class Selector extends StackLayout{
     name: "hAlignment",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      target.horizontalAlignment=newValue
-      target.label.map((e,i,o)=>{ e.horizontalAlignment=newValue }) 
-      target.notifyPropertyChange('hAlignment', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('hAlignment', newValue, oldValue) }
   })
   
   // set the vertical alignment of the labels
@@ -230,11 +173,7 @@ export class Selector extends StackLayout{
     name: "vAlignment",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      target.verticalAlignment=newValue
-      target.label.map((e,i,o)=>{ e.verticalAlignment=newValue }) 
-      target.notifyPropertyChange('vAlignment', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('vAlignment', newValue, oldValue) }
   })
 
   // sets the Selectors color
@@ -242,10 +181,7 @@ export class Selector extends StackLayout{
     name: "color",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      target.backgroundColor=newValue 
-      target.notifyPropertyChange('color', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('color', newValue, oldValue) }
   })
 
   // determine how to split the labels string into labels. Default ","
@@ -253,12 +189,7 @@ export class Selector extends StackLayout{
     name: "spliter",
     defaultValue: ',',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      let labels=target.labels; 
-      target.labels=''; 
-      target.labels=labels 
-      target.notifyPropertyChange('spliter', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('spliter', newValue, oldValue) }
   })
 
   // sets labels fontSize
@@ -266,10 +197,7 @@ export class Selector extends StackLayout{
     name: "fontSize",
     defaultValue: '',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      target.label.map((e,i,o)=>{ e.fontSize=target.fontSize }) 
-      target.notifyPropertyChange('fontSize', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('fontSize', newValue, oldValue) }
   })
 
   // sets labels text color
@@ -278,7 +206,6 @@ export class Selector extends StackLayout{
     defaultValue: '',
     affectsLayout: true,
     valueChanged: function(target, oldValue, newValue) { 
-      target.label.map((e,i,o)=>{ e.color=target.textColor }) 
       target.notifyPropertyChange('textColor', newValue, oldValue)
     }
   })
@@ -286,23 +213,9 @@ export class Selector extends StackLayout{
   // set as many labels as split into a string by spliter.
   #labels = new Property({
     name: "labels",
-    defaultValue: '',
+    defaultValue: 'labels',
     affectsLayout: true,
-    valueChanged: function(target, oldValue, newValue) { 
-      if(target.getChildrenCount() > 0){ while(target.label.length>0) target.removeChild(target.label.pop()) }
-      let lb=newValue.split(target.spliter); lb.map((e,i,o)=>{o[i]=o[i].trim()})
-      lb.map((e,i,o)=>{
-        let label=new Label()
-        label.verticalAlignment=target.vAlignment
-        label.horizontalAlignment=target.hAlignment
-        label.text=e
-        label.fontSize=target.fontSize
-        label.color=target.textColor
-        target.addChild(label)
-//        target.BindRichText(label, e)
-      })
-      target.notifyPropertyChange('labels', newValue, oldValue)
-    }
+    valueChanged: function(target, oldValue, newValue) { target.notifyPropertyChange('labels', newValue, oldValue) }
   })
   
   constructor(
@@ -347,9 +260,78 @@ export class Selector extends StackLayout{
     this.selectedColor=selectedColor
     this.borderColor=borderColor
   
-    this.on(Selector.propertyChangeEvent, (o)=>{
-      console.log(o.propertyName)
-      if(o.propertyName =='labels') console.log('labels changed.')
+    this.on(Selector.propertyChangeEvent, (target)=>{
+      
+      if(target.propertyName =='labels') {
+        if(target.object.getChildrenCount() > 0){ while(target.object.label.length>0) target.object.removeChild(target.object.label.pop()) }
+        let lb=target.value.split(target.object.spliter); lb.map((e,i,o)=>{o[i]=o[i].trim()})
+        lb.map((e,i,o)=>{
+          let label=new Label()
+          label.verticalAlignment=target.object.vAlignment
+          label.horizontalAlignment=target.object.hAlignment
+          label.text=e
+          label.fontSize=target.object.fontSize
+          label.color=target.object.textColor
+          target.object.addChild(label)
+        })
+        
+        console.log(target.propertyName)
+      }
+
+      if(target.propertyName =='textColor') { target.object.label.map((e,i,o)=>{ e.color=target.object.textColor }) }
+
+      if(target.propertyName =='fontSize') { target.label.map((e,i,o)=>{ e.fontSize=target.fontSize }) }
+
+      if(target.propertyName =='spliter') { let labels=target.object.labels; target.object.labels=''; target.object.labels=labels } 
+
+      if(target.propertyName =='color') { target.object.backgroundColor=target.value } 
+      
+      if(target.propertyName =='vAlignment') { target.object.verticalAlignment=target.value; target.object.label.map((e,i,o)=>{ e.verticalAlignment=target.value }) }
+
+      if(target.propertyName =='hAlignment') { target.object.horizontalAlignment=target.value; target.object.label.map((e,i,o)=>{ e.horizontalAlignment=target.value }) }
+
+      if(target.propertyName =='selectedWidth') { let color=target.object.borderColor; target.object.borderColor=''; target.object.borderColor=color }
+
+      if(target.propertyName =='unSelectedWidth') { let color=target.object.borderColor; target.object.borderColor=''; target.object.borderColor=color }
+
+      if(target.propertyName =='selectedColor') { let color=target.object.borderColor; target.object.borderColor=''; target.object.borderColor=color }
+
+      if(target.propertyName =='selectedBox') { let color=target.object.borderColor; target.object.borderColor=''; target.object.borderColor=color }
+
+      if(target.propertyName =='selected') {
+        let color=target.object.borderColor
+        target.object.borderColor=''
+        target.object.borderColor=color
+        console.log(`target.borderColor=Color`)
+      }
+
+      if(target.propertyName =='borderColor') {
+        if(target.object.selected){
+          if(target.object.selectedBox){
+            target.object.borderWidth=target.object.selectedWidth
+            target.object.borderTopColor=target.object.selectedColor
+            target.object.borderRightColor=target.object.selectedColor
+            target.object.borderBottomColor=target.object.selectedColor
+            target.object.borderLeftColor=target.object.selectedColor
+          }
+          else{
+            target.object.borderWidth=target.object.unSelectedWidth
+            target.object.borderTopColor=target.value
+            target.object.borderRightColor=target.value
+            target.object.borderBottomWidth=target.object.selectedWidth
+            target.object.borderBottomColor=target.object.selectedColor
+            target.object.borderLeftColor=target.value
+          }
+        }
+        else{
+          target.object.borderWidth=target.object.unSelectedWidth
+          target.object.borderTopColor=target.value
+          target.object.borderRightColor=target.value
+          target.object.borderBottomColor=target.value
+          target.object.borderLeftColor=target.value
+        }
+      }
+
     })
 
     this.on('tap',(o)=>{
