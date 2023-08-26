@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "org.nativescript.sample.app-mergeDebugResources-28:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\semiu\\.gradle\\caches\\transforms-3\\e0310d00d00b2e328c70caf7a9f79ee1\\transformed\\material-1.6.1\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,191",
+                        "endColumns": "135,140",
+                        "endOffsets": "186,327"
+                    }
+                }
+            ]
+        }
+    ]
+}

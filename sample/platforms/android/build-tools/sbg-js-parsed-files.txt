@@ -1,0 +1,17 @@
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\bundle.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\all.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\all.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\brands.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\brands.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\conflict-detection.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\conflict-detection.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\fontawesome.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\fontawesome.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\regular.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\regular.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\solid.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\solid.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\v4-shims.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\fonts\fontawesome-free-6.4.0-web\js\v4-shims.min.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\runtime.js
+C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app\src\main\assets\app\vendor.js
