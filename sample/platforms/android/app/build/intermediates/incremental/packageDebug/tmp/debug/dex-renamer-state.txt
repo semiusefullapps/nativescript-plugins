@@ -1,4 +1,0 @@
-#Sat Aug 26 10:10:08 EDT 2023
-base.0=C\:\\Users\\semiu\\Desktop\\git-repos\\nativescript-plugins\\sample\\platforms\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

@@ -1,2 +1,0 @@
-org.nativescript.core
-id nativescript_accessibility_id

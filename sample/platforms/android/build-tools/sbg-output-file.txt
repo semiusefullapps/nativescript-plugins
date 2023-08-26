@@ -1,1 +1,0 @@
-C:\Users\semiu\Desktop\git-repos\nativescript-plugins\sample\platforms\android\app/src/main/java
