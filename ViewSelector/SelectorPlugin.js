@@ -1,12 +1,11 @@
 import { StackLayout, Label, GestureTypes, FormattedString, Span } from "@nativescript/core"
-
+///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 //  IMPORTANT: To see the Sample and how to use this plugin:
 //             ns create myCoolApp --js 
 //             download and unzip the app.zip and replace the app folder in myCoolApp
 //             Explore the source and run the app to see some of what the ViewSelector 
 //             can do.
-//
 //
 //   Plugin is still in development
 //   The Selector class is as of this code stable.
@@ -247,7 +246,7 @@ class Selector extends VSSL{
         
         if(obj._view){
           if(obj.selected) obj.Show(obj._view)
-          else obj.Hide(obj._view)
+          else obj.Gone(obj._view)
         }
 
       }
@@ -281,10 +280,7 @@ class Selector extends VSSL{
 
       if(pn =='view') { 
         let view=this.topLevel.getViewById(this.view)
-        if(view){
-          this._view=view
-          this.Hide(this._view)
-        }              
+        if(view){ this._view=view}              
       }
 
     })
@@ -323,7 +319,6 @@ class Selector extends VSSL{
     let view=this.topLevel.getViewById(this.view)
     if(view){
       this._view=view
-      this.Hide(this._view)
       if(this.selected==true){
         this.selected=false
         this.selected=true
@@ -520,9 +515,7 @@ export class ViewSelector extends VSSL{
 
   Select(view){
     this.selector.map((e,i,o)=>{ e.selected=false })
-    this.selector.map((e,i,o)=>{ 
-      if(e.view==view) { e.selected=true } 
-    })
+    this.selector.map((e,i,o)=>{ if(e.view==view) { e.selected=true } })
   }
 
   Horizontal(){ this.orientation='horizontal'; let views=this.views; this.views=''; this.views=views; this.Select(this.selected) }
